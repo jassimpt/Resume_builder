@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:resume_builder/controller/data_controller.dart';
+import 'package:resume_builder/model/education_model.dart';
+import 'package:resume_builder/model/personal_details_model.dart';
+import 'package:resume_builder/model/work_history_model.dart';
 import 'package:resume_builder/views/skills_screen.dart';
 import 'package:resume_builder/views/widgets/custom_textfield.dart';
-import 'package:resume_builder/views/widgets/heading_row.dart';
 
 class EducationScreen extends StatelessWidget {
-  EducationScreen({super.key});
+  EducationScreen(
+      {super.key, required this.workHistory, required this.personalDetails});
+
+  final List<WorkHistoryModel> workHistory;
+  final PersonalDetailsModel personalDetails;
 
   TextEditingController scahoolnameController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
@@ -36,10 +44,15 @@ class EducationScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          final pro = Provider.of<DataController>(context, listen: false);
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SkillsScreen(),
+                builder: (context) => SkillsScreen(
+                  personaldetails: personalDetails,
+                  workhistory: workHistory,
+                  education: pro.educationlist,
+                ),
               ));
         },
         backgroundColor: Color.fromARGB(255, 59, 111, 255),
@@ -108,7 +121,10 @@ class EducationScreen extends StatelessWidget {
                         Row(
                           children: [
                             TextButton(
-                                onPressed: () {}, child: const Text('Submit')),
+                                onPressed: () {
+                                  addEducation(context);
+                                },
+                                child: const Text('Submit')),
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -132,12 +148,37 @@ class EducationScreen extends StatelessWidget {
               )),
         ],
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(15),
         child: Column(
-          children: [],
+          children: [
+            Consumer<DataController>(
+              builder: (context, datacontroller, child) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: datacontroller.educationlist.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text('hello'),
+                      );
+                    },
+                  ),
+                );
+              },
+            )
+          ],
         ),
       ),
     );
+  }
+
+  void addEducation(BuildContext context) {
+    final pro = Provider.of<DataController>(context, listen: false);
+    EducationModel education = EducationModel(
+        degree: degreecontroller.text,
+        enddate: endDateController.text,
+        schoolname: scahoolnameController.text,
+        startdate: startDateController.text);
+    pro.addEducation(education);
   }
 }

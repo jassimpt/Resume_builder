@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:resume_builder/controller/data_controller.dart';
+import 'package:resume_builder/model/personal_details_model.dart';
+import 'package:resume_builder/model/work_history_model.dart';
 import 'package:resume_builder/views/education_screen.dart';
 import 'package:resume_builder/views/widgets/custom_textfield.dart';
 import 'package:resume_builder/views/widgets/heading_row.dart';
 
 class WorkHistoryScreen extends StatelessWidget {
-  WorkHistoryScreen({super.key});
+  WorkHistoryScreen({super.key, required this.personalDetails});
+
+  final PersonalDetailsModel personalDetails;
 
   TextEditingController employerController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
@@ -35,12 +41,16 @@ class WorkHistoryScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          final pro = Provider.of<DataController>(context, listen: false);
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => EducationScreen(),
+            builder: (context) => EducationScreen(
+              personalDetails: personalDetails,
+              workHistory: pro.workhistorylist,
+            ),
           ));
         },
-        backgroundColor: Color.fromARGB(255, 59, 111, 255),
-        child: Icon(
+        backgroundColor: const Color.fromARGB(255, 59, 111, 255),
+        child: const Icon(
           Icons.arrow_right,
           color: Colors.white,
         ),
@@ -98,7 +108,10 @@ class WorkHistoryScreen extends StatelessWidget {
                         Row(
                           children: [
                             TextButton(
-                                onPressed: () {}, child: const Text('Submit')),
+                                onPressed: () {
+                                  addWorkHistory(context);
+                                },
+                                child: const Text('Submit')),
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -122,12 +135,38 @@ class WorkHistoryScreen extends StatelessWidget {
               )),
         ],
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(15),
         child: Column(
-          children: [],
+          children: [
+            Consumer<DataController>(
+              builder: (context, datacontroller, child) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: datacontroller.workhistorylist.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text('Hello'),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  void addWorkHistory(BuildContext context) {
+    final pro = Provider.of<DataController>(context, listen: false);
+
+    WorkHistoryModel workhistory = WorkHistoryModel(
+        employername: employerController.text,
+        enddate: startDateController.text,
+        jobtitle: jobtitlecontroller.text,
+        startdate: startDateController.text);
+    pro.addWorkHistory(workhistory);
   }
 }
