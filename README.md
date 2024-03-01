@@ -1,16 +1,22 @@
-# resume_builder
+# Flutter Resume Builder App
 
-A new Flutter project.
 
-## Getting Started
+## About
 
-This project is a starting point for a Flutter application.
+Welcome to the Flutter Resume Builder App! This project empowers users to create professional resumes with ease. 
+Whether you're a job seeker or just want to maintain an up-to-date CV,
+our app provides a user-friendly interface to input your information and generate a polished resume.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ - User-Friendly Interface: Intuitive design for seamless navigation and information input.
+ - Local Storage with Hive: Utilizes Hive as a lightweight and efficient local storage solution, ensuring data persistence across app sessions.
+ - State Management with Provider: Implements Provider for efficient state management, offering a scalable and maintainable architecture.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies Used
+
+ - Flutter: A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+ - Hive: A lightweight and fast key-value database for Flutter, used for efficient local storage.
+ - Provider: A state management library for Flutter, offering a simple and scalable solution for managing app state.
+
+Happy coding! 🚀
