@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:resume_builder/controller/data_controller.dart';
@@ -145,8 +146,77 @@ class WorkHistoryScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: datacontroller.workhistorylist.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text('Hello'),
+                      final WorkHistoryModel work =
+                          datacontroller.workhistorylist[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromARGB(255, 219, 219, 219)),
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        work.jobtitle!,
+                                        style: GoogleFonts.urbanist(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        work.employername!,
+                                        style: GoogleFonts.urbanist(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      work.startdate!,
+                                      style: GoogleFonts.urbanist(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "to",
+                                      style: GoogleFonts.urbanist(
+                                        color: const Color.fromARGB(
+                                            255, 59, 111, 255),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      work.enddate!,
+                                      style: GoogleFonts.urbanist(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -168,5 +238,6 @@ class WorkHistoryScreen extends StatelessWidget {
         jobtitle: jobtitlecontroller.text,
         startdate: startDateController.text);
     pro.addWorkHistory(workhistory);
+    Navigator.pop(context);
   }
 }

@@ -158,8 +158,77 @@ class EducationScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: datacontroller.educationlist.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text('hello'),
+                      final EducationModel education =
+                          datacontroller.educationlist[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromARGB(255, 219, 219, 219)),
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        education.degree!,
+                                        style: GoogleFonts.urbanist(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        education.schoolname!,
+                                        style: GoogleFonts.urbanist(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      education.startdate!,
+                                      style: GoogleFonts.urbanist(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "to",
+                                      style: GoogleFonts.urbanist(
+                                        color: const Color.fromARGB(
+                                            255, 59, 111, 255),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      education.enddate!,
+                                      style: GoogleFonts.urbanist(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -180,5 +249,6 @@ class EducationScreen extends StatelessWidget {
         schoolname: scahoolnameController.text,
         startdate: startDateController.text);
     pro.addEducation(education);
+    Navigator.pop(context);
   }
 }

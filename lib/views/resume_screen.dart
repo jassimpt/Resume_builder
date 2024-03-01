@@ -2,10 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:resume_builder/model/education_model.dart';
 import 'package:resume_builder/model/resume_model.dart';
 import 'package:resume_builder/model/work_history_model.dart';
+import 'package:resume_builder/views/widgets/education_info.dart';
 import 'package:resume_builder/views/widgets/personal_info_row.dart';
+import 'package:resume_builder/views/widgets/skills_row.dart';
 import 'package:resume_builder/views/widgets/summary_row.dart';
+import 'package:resume_builder/views/widgets/work_info_row.dart';
 
 class ResumeScreen extends StatelessWidget {
   ResumeScreen({super.key, required this.resume});
@@ -111,40 +115,17 @@ class ResumeScreen extends StatelessWidget {
             const Divider(
               color: Color.fromARGB(255, 59, 111, 255),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                        child: Text(
-                          "Education :",
-                          style: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 59, 111, 255),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  // ListView.builder(
-                  //   itemBuilder: (context, index) {
-                  //     final WorkHistoryModel work =
-                  //         resume.workhistory![index];
-                  //     return ListTile(
-                  //       title: Text('hello'),
-                  //     );
-                  //   },
-                  // )
-                ],
-              ),
+            EducationInfoRow(
+              resume: resume,
             ),
+            const Divider(
+              color: Color.fromARGB(255, 59, 111, 255),
+            ),
+            WorkInfoRow(resume: resume),
+            const Divider(
+              color: Color.fromARGB(255, 59, 111, 255),
+            ),
+            SkillsInfoRow(resume: resume)
           ],
         ),
       ),

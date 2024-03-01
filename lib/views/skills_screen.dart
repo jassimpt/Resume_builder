@@ -111,8 +111,15 @@ class SkillsScreen extends StatelessWidget {
                     child: ListView.builder(
                   itemCount: datacontroller.skillslist.length,
                   itemBuilder: (context, index) {
+                    final String skill = datacontroller.skillslist[index];
                     return ListTile(
-                      title: Text('HEllo'),
+                      title: Text(
+                        skill,
+                        style: GoogleFonts.urbanist(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     );
                   },
                 ));
@@ -127,5 +134,6 @@ class SkillsScreen extends StatelessWidget {
   void addSkill(BuildContext context) {
     final pro = Provider.of<DataController>(context, listen: false);
     pro.addSkills(skillsController.text);
+    Navigator.pop(context);
   }
 }
